@@ -1,0 +1,34 @@
+{
+    "manifest_version": 2,
+    "name": "tab50",
+    "version": "1.0",
+    "description": "Overrides Chrome's New Tab page to display the time, date, a greeting, the HUDS menu of the day, weather, and sticky note functionality.",
+    "chrome_url_overrides": {
+        "newtab": "index.html"
+    },
+    "browser_action": {
+        "default_icon": {
+            "16": "tab50.png",
+            "24": "tab50.png",
+            "32": "tab50.png"
+          },
+        "default_title": "tab50; Nicolas Yan",
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+          "storage", "geolocation"
+        ],
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*/_/chrome/newtab*"
+            ],
+            "js": ["content.js"],
+            "run_at": "document_start"
+        }
+    ],
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+    }
+}
