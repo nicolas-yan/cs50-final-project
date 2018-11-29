@@ -5,6 +5,8 @@ console.log("Welcome to tab50!");
 window.onload = loadUsername();
 // Run "loadText" function when window loads
 window.onload = loadText();
+// Run "showHide" function when window loads
+window.onload = showHide();
 
 document.addEventListener("DOMContentLoaded", function() {
     // Make sure DOM content has been loaded before running "loadBackground" function
@@ -15,6 +17,10 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("#menu").addEventListener("click", linkMenu);
     // Once DOM content has loaded, listen for user clicking on the Post-It Note
     document.querySelector("#text").addEventListener("click", checkBlank);
+    // Once DOM content has loaded, listen for user clicking on the "x" to hide the Post-It Note
+    document.querySelector("#hide").addEventListener("click", hidePostIt);
+    // Once DOM content has loaded, listen for user clicking "Notes" button
+    document.querySelector("#show").addEventListener("click", showPostIt);
 });
 
 // Load random background image from folder
@@ -153,10 +159,46 @@ function blankText() {
 function newText() {
     var textinput = text.innerHTML;
     chrome.storage.sync.set({
-        "textinput": textinput
-    }, function() {
-        console.log("New Text: " + textinput);
-    })
-    // Recursive function to continually save inputted text
+            "textinput": textinput
+        }, function() {
+            console.log("New Text: " + textinput);
+        })
+        // Recursive function to continually save inputted text
     var s = setTimeout(newText, 2000);
+}
+
+// Check whether to show or hide Post-It Note on load
+function showHide() {
+    check = chrome.storage.sync.get(["check"], function(result) {
+        console.log("Result: " + result.check);
+        check = result.check;
+        postit = document.getElementById("postit");
+        if (check == "Show") {
+            postit.style.display = "inline-block";
+        } else {
+            postit.style.display = "none";
+        }
+    })
+}
+
+// Hide Post-It Note when user clicks "x"
+function hidePostIt() {
+    postit = document.getElementById("postit");
+    postit.style.display = "none";
+    chrome.storage.sync.set({
+        "check": "Hide"
+    }, function() {
+        console.log("Hide");
+    })
+}
+
+// Show Post-It Note when user clicks "Notes" button
+function showPostIt() {
+    postit = document.getElementById("postit");
+    postit.style.display = "inline-block";
+    chrome.storage.sync.set({
+        "check": "Show"
+    }, function() {
+        console.log("Show");
+    })
 }
