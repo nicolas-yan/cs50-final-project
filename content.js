@@ -9,6 +9,7 @@ window.onload = loadText();
 window.onload = showHide();
 
 document.addEventListener("DOMContentLoaded", function() {
+    getLocation();
     // Make sure DOM content has been loaded before running "loadBackground" function
     loadBackground();
     // Once DOM content has loaded, listen for user clicking "Edit Name" button
@@ -21,6 +22,10 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("#hide").addEventListener("click", hidePostIt);
     // Once DOM content has loaded, listen for user clicking "Notes" button
     document.querySelector("#show").addEventListener("click", showPostIt);
+    
+    
+    //document.querySelector("#celsius").addEventListener("click", celsius);
+    //document.querySelector("#fahrenheit").addEventListener("click", fahrenheit);
 });
 
 // Load random background image from folder
@@ -202,3 +207,26 @@ function showPostIt() {
         console.log("Show");
     })
 }
+
+var api = "api.openweathermap.org/data/2.5/weather?";
+var apiKey = "&APPID=03de75a445a04038533e13c2494d6253";
+var imperial = "&units=imperial";
+var metric = "&units=metric";
+var coordinates;
+var url;
+
+// Get user's coordinates
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showCoordinates);
+    } else { 
+        document.getElementById("location").innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showCoordinates(position) {
+    coordinates = "&lat=" + position.coords.latitude + "&lon=" + position.coords.longitude;
+    url = api + apiKey + imperial + coordinates;
+}
+
+

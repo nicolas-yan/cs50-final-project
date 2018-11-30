@@ -23,7 +23,7 @@
             "matches": [
                 "*://*/_/chrome/newtab*"
             ],
-            "js": ["content.js"],
+            "js": ["content.js", "jquery-3.3.1.min.js"],
             "run_at": "document_start"
         }
     ],

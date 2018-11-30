@@ -7,6 +7,7 @@
         <meta name="viewport" content="initial-scale=1, width=device-width">
 
         <script type="text/javascript" src="content.js"></script>
+        <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
         
         <!-- Bootstrap -->
         <link href="css/bootstrap.min.css" rel="stylesheet">        
@@ -33,7 +34,7 @@
         </div>
         
         <div class="button" id="username">
-            <button type="button" class="btn btn-light">Edit Name</button>
+            <button type="button" class="btn btn-light btn-secondary btn-sm">Edit Name</button>
         </div>
         
         <div class="postit" id="postit">
@@ -42,7 +43,20 @@
             </div>
             <div contenteditable="true" class="text" id="text">Click here to edit me!</div>
         </div>
-            
+        
+        <div class="weather" id="weather">
+            <div class="location" id="location">Your location</div>
+        </div>
+        
+        <div class="btn-group btn-group-toggle" data-toggle="buttons" id="toggle">
+            <label class="btn btn-light btn-secondary btn-sm active">
+                <input type="radio" id="celsius" autocomplete="off" checked> &deg;C
+            </label>
+            <label class="btn btn-light btn-secondary btn-sm">
+                <input type="radio" id="fahrenheit" autocomplete="off"> &deg;F
+            </label>
+        </div>
+        
     </body>
 
 </html>

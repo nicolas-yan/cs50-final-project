@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500');
 
 div.time {
     font-family: "Roboto", sans-serif;
@@ -6,11 +6,11 @@ div.time {
 }
 
 div.time#minutes {
-    font-size: 150px;
+    font-size: 170px;
     font-weight: 500;
     text-align: center;
     position: absolute;
-    height: 200px;
+    height: 250px;
     top: 0;
     bottom: 0;
     left: 0;
@@ -20,7 +20,7 @@ div.time#minutes {
 
 div.time#dayanddate {
     font-size: 55px;
-    font-weight: 400;
+    font-weight: 500;
     position: fixed;
     width: auto;
     margin-left: 15px;
@@ -29,7 +29,7 @@ div.time#dayanddate {
 
 div.time#greeting {
     font-size: 45px;
-    font-weight: 300;
+    font-weight: 400;
     position: absolute;
     width: auto;
     margin-left: 15px;
@@ -63,7 +63,7 @@ body {
 }
 
 div.postit {
-    /* Modified from: https://mentormate.com/blog/css-postit-note/ */
+    /* Appearance of Post-It note modified from: https://mentormate.com/blog/css-postit-note/ */
     line-height: 1.3;
     width: 250px;    
     min-height: 240px;
@@ -71,7 +71,7 @@ div.postit {
     position: fixed;
     top: 10px;
     left: 10px;
-    border: 1px solid #E8E8E8;  
+    border: 1px hidden;  
     display: inline-block;
     /* Source for gradient code: https://cssgradient.io/ */
     background: rgb(255,255,128);
@@ -100,4 +100,20 @@ div.hide {
 
 div.hide:focus {
     outline: none;
+}
+
+div.weather {
+    font-family: "Roboto", sans-serif;
+    color: white;
+    text-align: center;
+}
+
+div.weather#location {
+}
+
+#toggle {
+    font-family: "Roboto", sans-serif;
+    position: fixed;
+    bottom: 60px;
+    right: 15px;
 }
