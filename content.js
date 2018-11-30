@@ -22,10 +22,9 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("#hide").addEventListener("click", hidePostIt);
     // Once DOM content has loaded, listen for user clicking "Notes" button
     document.querySelector("#show").addEventListener("click", showPostIt);
-    
-    
-    //document.querySelector("#celsius").addEventListener("click", celsius);
-    //document.querySelector("#fahrenheit").addEventListener("click", fahrenheit);
+    // Once DOM content has loaded, listen for user clicking Fahrenheit or Celsius toggle
+    document.querySelector("#celsius").addEventListener("click", toggleCelsius);
+    document.querySelector("#fahrenheit").addEventListener("click", toggleFahrenheit);
 });
 
 // Load random background image from folder
@@ -208,6 +207,7 @@ function showPostIt() {
     })
 }
 
+// Declaring global variables
 var api = "api.openweathermap.org/data/2.5/weather?";
 var apiKey = "&APPID=03de75a445a04038533e13c2494d6253";
 var imperial = "&units=imperial";
@@ -224,9 +224,44 @@ function getLocation() {
     }
 }
 
+// Return url with relevant latitude and longitude to call OpenWeatherMap API
 function showCoordinates(position) {
     coordinates = "&lat=" + position.coords.latitude + "&lon=" + position.coords.longitude;
     url = api + apiKey + imperial + coordinates;
 }
 
+// Change active state of Celsius/Fahrenheit toggle based on user selection (source: https://www.w3schools.com/howto/howto_js_active_element.asp)
+function toggleFahrenheit() {
+    var toggle = document.getElementById("toggle");
+    var btns = toggle.getElementsByClassName("btn-light");
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function() {
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active", "");
+            this.className += " active";
+        });
+    }
+    chrome.storage.sync.set({
+            "Units": "Fahrenheit"
+        }, function() {
+            console.log("Units: Fahrenheit");
+        })
+}
 
+// Change active state of Celsius/Fahrenheit toggle based on user selection (source: https://www.w3schools.com/howto/howto_js_active_element.asp)
+function toggleCelsius() {
+    var toggle = document.getElementById("toggle");
+    var btns = toggle.getElementsByClassName("btn-light");
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function() {
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active", "");
+            this.className += " active";
+        });
+    }
+    chrome.storage.sync.set({
+            "Units": "Celsius"
+        }, function() {
+            console.log("Units: Celsius");
+        })
+}
