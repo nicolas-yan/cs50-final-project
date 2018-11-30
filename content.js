@@ -1,12 +1,14 @@
 // Log in Javascript console when initialized
 console.log("Welcome to tab50!");
 
+window.onload = checkToggleActive();
 // Run "loadUsername" function when window loads
 window.onload = loadUsername();
 // Run "loadText" function when window loads
 window.onload = loadText();
 // Run "showHide" function when window loads
 window.onload = showHide();
+
 
 document.addEventListener("DOMContentLoaded", function() {
     getLocation();
@@ -242,9 +244,9 @@ function toggleFahrenheit() {
         });
     }
     chrome.storage.sync.set({
-            "Units": "Fahrenheit"
+            "units": "Fahrenheit"
         }, function() {
-            console.log("Units: Fahrenheit");
+            console.log("Fahrenheit");
         })
 }
 
@@ -260,8 +262,23 @@ function toggleCelsius() {
         });
     }
     chrome.storage.sync.set({
-            "Units": "Celsius"
+            "units": "Celsius"
         }, function() {
-            console.log("Units: Celsius");
+            console.log("Celsius");
         })
+}
+
+// Check which toggle option should be active on page load
+function checkToggleActive() {
+    active = chrome.storage.sync.get(["units"], function(result) {
+        console.log(result.units);
+        check = result.units;
+        if (check == "Fahrenheit") {
+            toggleFahrenheit();
+            document.getElementById("fahrenheit").click();
+        } else {
+            toggleCelsius();
+            document.getElementById("celsius").click();
+        }
+    })
 }
