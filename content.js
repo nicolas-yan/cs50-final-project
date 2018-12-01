@@ -246,8 +246,8 @@ function showCoordinates(position) {
             console.log(weather);
             iconURL = "http://openweathermap.org/img/w/" + weather.weather["0"].icon + ".png";
             document.getElementById("icon").src = iconURL;
-            document.getElementById("weather1").innerHTML = "<br>" + weather.main.temp + "&deg;";
-            document.getElementById("weather2").innerHTML = "<i>" + weather.name + ", " + weather.sys.country + "</i>" + ".<br>" + weather.weather["0"].main + " (" + weather.weather["0"].description + "). High: " + weather.main.temp_max + "&deg; / Low: " + weather.main.temp_min + "&deg;";
+            document.getElementById("weather1").innerHTML = "<br>" + Math.round(weather.main.temp) + "&deg;";
+            document.getElementById("weather2").innerHTML = "<i>" + weather.name + ", " + weather.sys.country + "</i>" + "<br>" + weather.weather["0"].main + " (" + weather.weather["0"].description + "). High: " + Math.round(weather.main.temp_max) + "&deg; / Low: " + Math.round(weather.main.temp_min) + "&deg;";
         }
     }
     xhr.send();

@@ -105,8 +105,8 @@ div.hide:focus {
 div.container {
     font-family: "Roboto", sans-serif;
     color: black;
-    background: rgba(255, 255, 255, 0.7);
-    max-width: 500px;
+    background: rgba(255, 255, 255, 0.75);
+    max-width: 450px;
     padding: 10px;
     border: 1px hidden;
     border-radius: 10px;
@@ -115,11 +115,12 @@ div.container {
 #icon {
     display: block;
     float: right;
+    width: auto;
     vertical-align: text-bottom;
 }
 #weather1 {
-    font-size: 22px;
-    line-height: 0.8;
+    font-size: 30px;
+    line-height: 0.5;
     text-align: left;
     vertical-align: middle;
     font-weight: 300;
