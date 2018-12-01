@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "tab50",
     "version": "1.0",
-    "description": "Overrides Chrome's New Tab page to display the time, date, a greeting, the HUDS menu of the day, weather, and sticky note functionality.",
+    "description": "Overrides Chrome's New Tab page to display the time, date, a greeting, the weather, a sticky note, and a link to the HUDS Menu.",
     "chrome_url_overrides": {
         "newtab": "index.html"
     },
