@@ -236,11 +236,19 @@ function showCoordinates(position) {
         url = "http://" + api + apiKey + metric + coordinates;
     }
     console.log(url);
+    // Source: https://www.w3schools.com/xml/xml_http.asp
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url, true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
-            document.getElementById("location").innerHTML = xhr.responseText;
+            responseText = xhr.responseText;
+            weather = JSON.parse(responseText);
+            console.log(weather);
+            //iconURL = "http://openweathermap.org/img/w/" + weather.weather["0"].icon + ".png";
+            //document.getElementById("icon").src=iconURL;
+            document.getElementById("weather1").innerHTML = weather.main.temp + "&deg;";
+            document.getElementById("weather2").innerHTML = weather.weather["0"].main + " (" + weather.weather["0"].description + ")";
+            document.getElementById("weather3").innerHTML = "The high today in " + weather.name + ", " + weather.sys.country + " is " + weather.main.temp_max + "&deg; and the low is " + weather.main.temp_min + "&deg;";
         }
     }
     xhr.send();
