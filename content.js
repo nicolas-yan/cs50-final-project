@@ -216,6 +216,7 @@ var imperial = "&units=imperial";
 var metric = "&units=metric";
 var coordinates;
 var url;
+var units;
 
 // Get user's coordinates
 function getLocation() {
@@ -229,7 +230,20 @@ function getLocation() {
 // Return url with relevant latitude and longitude to call OpenWeatherMap API
 function showCoordinates(position) {
     coordinates = "&lat=" + position.coords.latitude + "&lon=" + position.coords.longitude;
-    url = api + apiKey + imperial + coordinates;
+    if (units == "Fahrenheit") {
+        url = "http://" + api + apiKey + imperial + coordinates;
+    } else {
+        url = "http://" + api + apiKey + metric + coordinates;
+    }
+    console.log(url);
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url, true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            document.getElementById("location").innerHTML = xhr.responseText;
+        }
+    }
+    xhr.send();
 }
 
 // Change active state of Celsius/Fahrenheit toggle based on user selection (source: https://www.w3schools.com/howto/howto_js_active_element.asp)
@@ -272,8 +286,8 @@ function toggleCelsius() {
 function checkToggleActive() {
     active = chrome.storage.sync.get(["units"], function(result) {
         console.log(result.units);
-        check = result.units;
-        if (check == "Fahrenheit") {
+        units = result.units;
+        if (units == "Fahrenheit") {
             toggleFahrenheit();
             document.getElementById("fahrenheit").click();
         } else {
