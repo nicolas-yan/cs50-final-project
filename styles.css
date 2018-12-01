@@ -112,7 +112,7 @@ div.container {
     border-radius: 10px;
 }
 
-#weather {
+#icon {
     display: block;
     float: right;
     vertical-align: text-bottom;
