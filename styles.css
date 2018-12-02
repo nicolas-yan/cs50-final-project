@@ -113,7 +113,6 @@ div.container {
 }
 
 #icon {
-    display: block;
     float: right;
     width: auto;
     vertical-align: text-bottom;

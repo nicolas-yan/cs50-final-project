@@ -3,60 +3,46 @@
 <html lang="en">
     
     <head>
-        
         <meta charset="UTF-8" name="viewport" content="initial-scale=1, width=device-width">
-
-        <script type="text/javascript" src="content.js"></script>
-        
+        <script type="text/javascript" src="content.js"></script>       
         <!-- Bootstrap -->
         <link href="css/bootstrap.min.css" rel="stylesheet">        
-        <link href="styles.css" rel="stylesheet">
-        
+        <link href="styles.css" rel="stylesheet">      
         <title>tab50</title>
-
     </head>
-
-    <body>
-        
-        <div class="time" id="minutes">00:00</div>
-        
-        <div class="time" id="greeting">Welcome, user!</div><br>
-        
-        <div class="time" id="dayanddate">Day, Month, Date</div>
-        
+    
+    <body>     
+        <div class="time" id="minutes">00:00</div>     
+        <div class="time" id="greeting">Welcome, user!</div><br>     
+        <div class="time" id="dayanddate">Day, Month, Date</div>      
         <div class="button" id="menu">
             <button type="button" class="btn btn-light">HUDS Menu</button>
-        </div>
-        
+        </div>     
         <div class="button" id="show">
             <button type="button" class="btn btn-light">Notes</button>
-        </div>
-        
+        </div>    
         <div class="button" id="username">
             <button type="button" class="btn btn-light btn-secondary btn-sm">Edit Name</button>
-        </div>
-        
+        </div>    
         <div class="postit" id="postit">
             <div class="hide" id="hide">
                 <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div contenteditable="true" class="text" id="text">Click here to edit me!</div>
-        </div>
-        
-        <div class="container">
+        </div>    
+        <div class="container" id="container">
             <div class="row">
                 <div class="col-2" id="weather">
                     <img id="icon" src="http://openweathermap.org/img/w/01d.png" alt="icon">
                 </div>
                 <div class="col-10">
                     <div class="row">
-                        <div class="col-2" id="weather1">0&deg;</div>
-                        <div class="col-10" id="weather2">Loading weather data for your location...</div>
+                        <div class="col-2" id="weather1"></div>
+                        <div class="col-10" id="weather2">Loading weather data<br>for your location...</div>
                     </div>
                 </div>
             </div>
-        </div>
-        
+        </div>   
         <div class="btn-group btn-group-toggle" data-toggle="buttons" id="toggle">
             <label class="btn btn-light btn-secondary btn-sm active">
                 <input type="radio" id="celsius" autocomplete="off"> &deg;C
@@ -64,8 +50,7 @@
             <label class="btn btn-light btn-secondary btn-sm">
                 <input type="radio" id="fahrenheit" autocomplete="off"> &deg;F
             </label>
-        </div>
-        
+        </div>     
     </body>
 
 </html>

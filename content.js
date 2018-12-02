@@ -9,7 +9,6 @@ window.onload = loadText();
 // Run "showHide" function when window loads
 window.onload = showHide();
 
-
 document.addEventListener("DOMContentLoaded", function() {
     getLocation();
     // Make sure DOM content has been loaded before running "loadBackground" function
@@ -27,6 +26,8 @@ document.addEventListener("DOMContentLoaded", function() {
     // Once DOM content has loaded, listen for user clicking Fahrenheit or Celsius toggle
     document.querySelector("#celsius").addEventListener("click", toggleCelsius);
     document.querySelector("#fahrenheit").addEventListener("click", toggleFahrenheit);
+    // Once DOM content has loaded, listen for user clicking weather display
+    document.querySelector("#container").addEventListener("click", goToWeather)
 });
 
 // Load random background image from folder
@@ -217,35 +218,44 @@ var metric = "&units=metric";
 var coordinates;
 var url;
 var units;
+var lat;
+var lon;
 
 // Get user's coordinates
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showCoordinates);
-    } else { 
+    } else {
         document.getElementById("location").innerHTML = "Geolocation is not supported by this browser.";
     }
 }
 
 // Return url with relevant latitude and longitude to call OpenWeatherMap API
 function showCoordinates(position) {
+    lat = position.coords.latitude;
+    lon = position.coords.longitude;
     coordinates = "&lat=" + position.coords.latitude + "&lon=" + position.coords.longitude;
+    // Check whether to use Fahrenheit or Celsius when making API query
     if (units == "Fahrenheit") {
         url = "http://" + api + apiKey + imperial + coordinates;
     } else {
         url = "http://" + api + apiKey + metric + coordinates;
     }
     console.log(url);
-    // Source: https://www.w3schools.com/xml/xml_http.asp
+    
+    // Make API query to OpenWeatherData (source: https://www.w3schools.com/xml/xml_http.asp)
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url, true);
-    xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
             responseText = xhr.responseText;
+            // Format data as Javascript object
             weather = JSON.parse(responseText);
             console.log(weather);
+            // Change source of weather icon as relevant
             iconURL = "http://openweathermap.org/img/w/" + weather.weather["0"].icon + ".png";
             document.getElementById("icon").src = iconURL;
+            // Update relevant weather information
             document.getElementById("weather1").innerHTML = "<br>" + Math.round(weather.main.temp) + "&deg;";
             document.getElementById("weather2").innerHTML = "<i>" + weather.name + ", " + weather.sys.country + "</i>" + "<br>" + weather.weather["0"].main + " (" + weather.weather["0"].description + "). High: " + Math.round(weather.main.temp_max) + "&deg; / Low: " + Math.round(weather.main.temp_min) + "&deg;";
         }
@@ -265,10 +275,10 @@ function toggleFahrenheit() {
         });
     }
     chrome.storage.sync.set({
-            "units": "Fahrenheit"
-        }, function() {
-            console.log("Fahrenheit");
-        })
+        "units": "Fahrenheit"
+    }, function() {
+        console.log("Fahrenheit");
+    })
 }
 
 // Change active state of Celsius/Fahrenheit toggle based on user selection (source: https://www.w3schools.com/howto/howto_js_active_element.asp)
@@ -283,10 +293,10 @@ function toggleCelsius() {
         });
     }
     chrome.storage.sync.set({
-            "units": "Celsius"
-        }, function() {
-            console.log("Celsius");
-        })
+        "units": "Celsius"
+    }, function() {
+        console.log("Celsius");
+    })
 }
 
 // Check which toggle option should be active on page load
@@ -302,4 +312,9 @@ function checkToggleActive() {
             document.getElementById("celsius").click();
         }
     })
+}
+
+// Go to Weather Underground website on user click to display more detailed weather information
+function goToWeather() {
+    window.open("https://www.wunderground.com/weather/" + lat + "%2C" + lon, "_self")
 }

@@ -1,0 +1,19 @@
+tab50 is a Chrome extension that overrides Chrome's default "new tab" page to display a customized background that gets the user's location, displays the relevant time, date, and a greeting based on the user's inputted username, queries the OpenWeatherMap API to display the current weather based on the geographic coordinates of the user's location (in either Fahrenheit or Celsius, based on the user's choice), and enables the user to write notes on a sticky note that can be shown or hidden based on the user's preference.
+
+Using and testing tab50 should be a straightforward process. The user should first download all of the relevant files to a single folder on their computer (such as a folder named "tab50" on the Desktop):
+* manifest.json
+* content.js
+* index.html
+* styles.css
+* popup.html
+* tab50.png
+* tab50_icon.png
+* README.md
+* DESIGN.md
+* css/ folder with 12 Bootstrap files
+* image/ folder with 50 .jpg files
+* js/ folder with 8 Bootstrap files
+
+Then, the user should open their Chrome browser and navigate to "chrome://extensions/" in the address bar. This will take the user to a dashboard that lays out all of the Chrome extensions that the user has downloaded and installed on their browser. Then, the user should toggle developer mode by clicking the slider in the top right corner of the window (labelled "Developer mode"). Once developer mode is toggled, the user should see three buttons appear in the top left corner of the window: "Load unpacked"; "Pack extension"; and "Update." The user should click on "Load unpacked" at which point a file browser will pop-up in the Chrome window. The user should select the extension directory by navigating to the folder that all of the relevant files are saved in (in the example I gave, this would be the folder named "tab50" on the Desktop). Once the user has navigated to this folder, the user should click the "Select" button, which will install the extension in the user's browser. The extension should now also appear in the Extensions dashboard. The extension should be automatically toggled, but if not, the user should toggle it clicking the slider in the tab50 box in the dashboard. Now, every time the user opens up a new tab in Chrome, the tab50 page should appear.
+
+Once the user has installed tab50 in Chrome, the user should set their username by clicking the "Edit Name" button at the bottom right corner of the window. Then, they should choose their units preference for the weather information (the default is Celsius; the user can choose Fahrenheit by clicking the slider at the bottom right corner of the window). The time and date should appear automatically. The weather data may take a little while to load as it queries the OpenWeatherMap API, but it should appear within 30 seconds. The user can also click on the waether display to open up more detailed weather information from Weather Underground. The user can check out the HUDS Menu of the Day by clicking on the "HUDS Menu" button at the top right corner of the window. The user can write their first note by clicking on the "Notes" button at the top left corner of the window to show the sticky note. The user can then minimize this sticky note again by clicking the "X" at the top right corner of the sticky note. tab50 will remember all of the user's preferences/data each time they open tab50 (that is, it will remember the state of the sticky note (whether it should be shown or hidden); the actual contents of the sticky note; the user's username; and whether they want the weather information in Celsius or Fahrenheit). Finally, each time the user opens a new tab, tab50 will display a different piece of artwork (randomly selected from among the 50 .jpgs in the "image/" folder).
