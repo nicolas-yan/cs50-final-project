@@ -1,6 +1,7 @@
 // Log in Javascript console when initialized
 console.log("Welcome to tab50!");
 
+// Run "checkToggleActive" function when window loads
 window.onload = checkToggleActive();
 // Run "loadUsername" function when window loads
 window.onload = loadUsername();
@@ -18,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Once DOM content has loaded, listen for user clicking "HUDS Menu" button
     document.querySelector("#menu").addEventListener("click", linkMenu);
     // Once DOM content has loaded, listen for user clicking on the Post-It Note
-    document.querySelector("#text").addEventListener("click", checkBlank);
+    document.querySelector("#text").addEventListener("click", newText);
     // Once DOM content has loaded, listen for user clicking on the "x" to hide the Post-It Note
     document.querySelector("#hide").addEventListener("click", hidePostIt);
     // Once DOM content has loaded, listen for user clicking "Notes" button
@@ -44,7 +45,7 @@ function loadBackground() {
 
 // Load username from Chrome storage (modified from https://developer.chrome.com/extensions/storage)
 function loadUsername() {
-    username = chrome.storage.sync.get(["username"], function(result) {
+    username = chrome.storage.local.get(["username"], function(result) {
         // Log username in Javascript console
         console.log("Username: " + result.username);
         username = result.username;
@@ -58,7 +59,7 @@ function editName() {
     username = prompt("Please enter your name:");
     // Save username in Chrome storage
     if (username != null) {
-        chrome.storage.sync.set({
+        chrome.storage.local.set({
             "username": username
         }, function() {
             // Log username in Javascript console
@@ -139,7 +140,7 @@ function linkMenu() {
 
 // Load Post-It Note text from Chrome storage, if any (modified from https://developer.chrome.com/extensions/storage)
 function loadText() {
-    loadText = chrome.storage.sync.get(["textinput"], function(result) {
+    loadText = chrome.storage.local.get(["textinput"], function(result) {
         console.log("Text loaded: " + result.textinput);
         loadText = result.textinput;
         // Display Post-It Note text that had been inputted previously
@@ -147,36 +148,21 @@ function loadText() {
     })
 }
 
-// Check if Post-It Note is displaying placeholder text
-function checkBlank() {
-    // If displaying placeholder text, call "blankText" function; else call "newText" function
-    if (document.getElementById("text").innerHTML == "Click here to edit me!") {
-        blankText();
-    } else {
-        newText();
-    }
-}
-
-// Delete placeholder text
-function blankText() {
-    document.getElementById("text").innerHTML = "";
-}
-
 // Save text inputted by user every 2 seconds when the Post-It Note is edited
 function newText() {
     var textinput = text.innerHTML;
-    chrome.storage.sync.set({
+    chrome.storage.local.set({
             "textinput": textinput
         }, function() {
             console.log("New Text: " + textinput);
         })
         // Recursive function to continually save inputted text
-    var s = setTimeout(newText, 2000);
+    var n = setTimeout(newText, 500);
 }
 
 // Check whether to show or hide Post-It Note on load
 function showHide() {
-    check = chrome.storage.sync.get(["check"], function(result) {
+    check = chrome.storage.local.get(["check"], function(result) {
         console.log("Result: " + result.check);
         check = result.check;
         postit = document.getElementById("postit");
@@ -192,7 +178,7 @@ function showHide() {
 function hidePostIt() {
     postit = document.getElementById("postit");
     postit.style.display = "none";
-    chrome.storage.sync.set({
+    chrome.storage.local.set({
         "check": "Hide"
     }, function() {
         console.log("Hide");
@@ -203,7 +189,7 @@ function hidePostIt() {
 function showPostIt() {
     postit = document.getElementById("postit");
     postit.style.display = "inline-block";
-    chrome.storage.sync.set({
+    chrome.storage.local.set({
         "check": "Show"
     }, function() {
         console.log("Show");
@@ -274,7 +260,7 @@ function toggleFahrenheit() {
             this.className += " active";
         });
     }
-    chrome.storage.sync.set({
+    chrome.storage.local.set({
         "units": "Fahrenheit"
     }, function() {
         console.log("Fahrenheit");
@@ -292,7 +278,7 @@ function toggleCelsius() {
             this.className += " active";
         });
     }
-    chrome.storage.sync.set({
+    chrome.storage.local.set({
         "units": "Celsius"
     }, function() {
         console.log("Celsius");
@@ -301,13 +287,13 @@ function toggleCelsius() {
 
 // Check which toggle option should be active on page load
 function checkToggleActive() {
-    active = chrome.storage.sync.get(["units"], function(result) {
+    active = chrome.storage.local.get(["units"], function(result) {
         console.log(result.units);
         units = result.units;
         if (units == "Fahrenheit") {
             toggleFahrenheit();
             document.getElementById("fahrenheit").click();
-        } else {
+        } else if (units == "Celsius") {
             toggleCelsius();
             document.getElementById("celsius").click();
         }
